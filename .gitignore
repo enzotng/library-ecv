@@ -1,0 +1,58 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+*.tlog
+*.out
+*.pid
+*.gz
+
+# Debug files
+*.swp
+*.swo
+*.swn
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build files
+build/
+dist/
+
+# React
+*.cache/
+.cache-loader/
+.DS_Store
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.iml
+
+# OS Files
+Thumbs.db
+Desktop.ini
+*.DS_Store
+
+# Testing
+coverage/
+*.lcov
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Miscellaneous
+*.lock

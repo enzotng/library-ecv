@@ -1,0 +1,18 @@
+.book-card {
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+}
+
+.book-card button {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: none;
+    font-weight: bold;
+}
+
+.book-card button:hover {
+    background-color: #f0f0f0;
+}
