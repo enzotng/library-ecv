@@ -6,7 +6,7 @@ interface Book {
     author: string;
     year: number;
     image?: string;
-    status: "available" | "borrowed";
+    status: "disponible" | "emprunte";
 }
 
 interface Loan {
@@ -15,7 +15,7 @@ interface Loan {
     userId: number;
     borrowDate: string;
     dueDate: string;
-    status: "borrowed" | "returned";
+    status: "emprunte" | "returned";
     bookDetails: Book | null;
 }
 
@@ -29,9 +29,7 @@ const UserDashboard: React.FC = () => {
     }, []);
 
     const handleReturnBook = (id: number) => {
-        fetch(`/loans/${id}`, { method: "PUT" }).then(() =>
-            setBorrowedBooks(borrowedBooks.filter((loan) => loan.id !== id))
-        );
+        fetch(`/loans/${id}`, { method: "PUT" }).then(() => setBorrowedBooks(borrowedBooks.filter((loan) => loan.id !== id)));
     };
 
     return (
@@ -46,18 +44,9 @@ const UserDashboard: React.FC = () => {
                             loan.bookDetails && (
                                 <div key={loan.id} className="book-item">
                                     <h3>{loan.bookDetails.title}</h3>
-                                    <p>
-                                        Auteur du livre :{" "}
-                                        {loan.bookDetails.author}
-                                    </p>
+                                    <p>Auteur du livre : {loan.bookDetails.author}</p>
                                     <p>Year: {loan.bookDetails.year}</p>
-                                    <button
-                                        onClick={() =>
-                                            handleReturnBook(loan.id)
-                                        }
-                                    >
-                                        Return
-                                    </button>
+                                    <button onClick={() => handleReturnBook(loan.id)}>Return</button>
                                 </div>
                             )
                     )

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { BookCard } from "../components/BookCard";
+import { BookCard } from "../../components/BookCard";
+
+import "./Home.css";
 
 interface Book {
     id: number;
@@ -7,7 +9,7 @@ interface Book {
     author: string;
     year: number;
     image?: string;
-    status: "available" | "borrowed";
+    status: "disponible" | "emprunte";
 }
 
 const Home: React.FC = () => {
@@ -32,13 +34,7 @@ const Home: React.FC = () => {
                 return res.json();
             })
             .then((loan) => {
-                setBooks((prevBooks) =>
-                    prevBooks.map((book) =>
-                        book.id === bookId
-                            ? { ...book, status: "borrowed" }
-                            : book
-                    )
-                );
+                setBooks((prevBooks) => prevBooks.map((book) => (book.id === bookId ? { ...book, status: "emprunte" } : book)));
             })
             .catch((err) => {
                 console.error("Error borrowing book:", err);
@@ -47,9 +43,9 @@ const Home: React.FC = () => {
     };
 
     return (
-        <main className="home">
+        <main className="homeWrapper">
             <h1>Library - ECV</h1>
-            <div className="book-list">
+            <div className="bookWrapper">
                 {books.map((book) => (
                     <BookCard key={book.id} {...book} onBorrow={handleBorrow} />
                 ))}

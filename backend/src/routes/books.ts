@@ -16,7 +16,7 @@ bookRoutes.post("/", (req: Request, res: Response) => {
         author,
         year,
         image,
-        status: "available",
+        status: "disponible",
     };
 
     books.push(newBook);

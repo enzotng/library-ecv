@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface User {
     id: number;
@@ -20,27 +19,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const savedToken = localStorage.getItem("token");
         if (savedToken) {
-            const decoded: any = JSON.parse(atob(savedToken.split(".")[1]));
-            setUser({ id: decoded.id, role: decoded.role });
-            setToken(savedToken);
+            try {
+                const decoded: { id: number; role: "user" | "admin" } =
+                    JSON.parse(atob(savedToken.split(".")[1]));
+                setUser({ id: decoded.id, role: decoded.role });
+                setToken(savedToken);
+            } catch (error) {
+                console.error("Failed to parse token:", error);
+                localStorage.removeItem("token");
+            }
         }
     }, []);
 
     const login = (newToken: string) => {
-        const decoded: any = JSON.parse(atob(newToken.split(".")[1]));
-        setUser({ id: decoded.id, role: decoded.role });
-        setToken(newToken);
-        localStorage.setItem("token", newToken);
-
-        if (decoded.role === "admin") {
-            navigate("/admin");
-        } else {
-            navigate("/dashboard");
+        try {
+            const decoded: { id: number; role: "user" | "admin" } = JSON.parse(
+                atob(newToken.split(".")[1])
+            );
+            setUser({ id: decoded.id, role: decoded.role });
+            setToken(newToken);
+            localStorage.setItem("token", newToken);
+        } catch (error) {
+            console.error("Failed to decode token during login:", error);
         }
     };
 
@@ -48,7 +52,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setUser(null);
         setToken(null);
         localStorage.removeItem("token");
-        navigate("/login");
     };
 
     return (

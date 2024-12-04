@@ -24,10 +24,8 @@ loanRoutes.post("/borrow", (req: Request, res: Response) => {
         return res.status(404).json({ message: "Book not found" });
     }
 
-    if (book.status !== "available") {
-        return res
-            .status(400)
-            .json({ message: "Book is not available for borrowing" });
+    if (book.status !== "disponible") {
+        return res.status(400).json({ message: "Book is not available for borrowing" });
     }
 
     const borrowDate = new Date();
@@ -40,12 +38,12 @@ loanRoutes.post("/borrow", (req: Request, res: Response) => {
         userId,
         borrowDate: borrowDate.toISOString(),
         dueDate: dueDate.toISOString(),
-        status: "borrowed",
+        status: "emprunte",
         bookDetails: book,
     };
 
     loans.push(loan);
-    book.status = "borrowed";
+    book.status = "emprunte";
 
     res.status(201).json(loan);
 });
@@ -67,7 +65,7 @@ loanRoutes.put("/return/:id", (req: Request, res: Response) => {
 
     const book = books.find((b) => b.id === loan.bookId);
     if (book) {
-        book.status = "available";
+        book.status = "disponible";
     }
 
     res.status(200).json({ message: "Book returned successfully", loan });

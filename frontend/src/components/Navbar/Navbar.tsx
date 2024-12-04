@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { MagnifyingGlass, UserCircle } from "phosphor-react";
 
 import "./Navbar.css";
 
@@ -8,34 +9,31 @@ const Navbar: React.FC = () => {
 
     return (
         <nav className="navbar">
-            <ul>
-                <li>
-                    <a href="/">Home</a>
-                </li>
+            <div className="navbar-logo">
+                <a href="/">MyLibrary</a>
+            </div>
+
+            <div className="navbar-search">
+                <input type="text" placeholder="Rechercher un livre..." />
+                <button>
+                    <MagnifyingGlass size={20} color="#252525" />
+                </button>
+            </div>
+
+            <div className="navbar-right">
                 {user ? (
-                    <>
-                        {user.role === "admin" && (
-                            <li>
-                                <a href="/admin">Admin Dashboard</a>
-                            </li>
-                        )}
-                        {user.role === "user" && (
-                            <li>
-                                <a href="/dashboard">User Dashboard</a>
-                            </li>
-                        )}
-                        <li>
-                            <button onClick={logout} className="logout-button">
-                                Logout
-                            </button>
-                        </li>
-                    </>
+                    <div className="profile">
+                        <a href="/profile">
+                            <UserCircle size={32} />
+                        </a>
+                        <button onClick={logout} className="logout-button">
+                            Logout
+                        </button>
+                    </div>
                 ) : (
-                    <li>
-                        <a href="/login">Login</a>
-                    </li>
+                    <button onClick={() => (window.location.href = "/login")}>Login</button>
                 )}
-            </ul>
+            </div>
         </nav>
     );
 };

@@ -1,0 +1,10 @@
+@import "../../base/variables.css";
+
+button {
+    font-family: var(--font-family);
+    color: var(--white-500);
+    border: none;
+    background-color: #444492;
+    padding: var(--spacing-sm);
+    border-radius: 0.25rem;
+}

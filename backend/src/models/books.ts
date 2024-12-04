@@ -4,7 +4,7 @@ interface Book {
     author: string;
     year: number;
     image?: string;
-    status: "available" | "borrowed" | string;
+    status: "disponible" | "emprunte" | string;
 }
 
 const books: Book[] = [];

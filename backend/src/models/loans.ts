@@ -6,7 +6,7 @@ interface Loan {
     userId: number;
     borrowDate: string;
     dueDate: string;
-    status: "borrowed" | "returned";
+    status: "emprunte" | "returned";
     bookDetails: Book | null;
 }
 

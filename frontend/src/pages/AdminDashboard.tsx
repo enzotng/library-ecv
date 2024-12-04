@@ -6,7 +6,7 @@ interface Book {
     author: string;
     year: number;
     image?: string;
-    status: "available" | "borrowed";
+    status: "disponible" | "emprunte";
 }
 
 const AdminDashboard: React.FC = () => {
@@ -30,41 +30,18 @@ const AdminDashboard: React.FC = () => {
     };
 
     const handleDeleteBook = (id: number) => {
-        fetch(`/books/${id}`, { method: "DELETE" }).then(() =>
-            setBooks(books.filter((book) => book.id !== id))
-        );
+        fetch(`/books/${id}`, { method: "DELETE" }).then(() => setBooks(books.filter((book) => book.id !== id)));
     };
 
     return (
         <main className="admin-dashboard">
-            <h1>Admin Dashboard</h1>
+            <h1>Espace administrateur</h1>
 
             <div className="add-book">
-                <h2>Add a Book</h2>
-                <input
-                    type="text"
-                    placeholder="Title"
-                    value={newBook.title}
-                    onChange={(e) =>
-                        setNewBook({ ...newBook, title: e.target.value })
-                    }
-                />
-                <input
-                    type="text"
-                    placeholder="Author"
-                    value={newBook.author}
-                    onChange={(e) =>
-                        setNewBook({ ...newBook, author: e.target.value })
-                    }
-                />
-                <input
-                    type="text"
-                    placeholder="Year"
-                    value={newBook.year}
-                    onChange={(e) =>
-                        setNewBook({ ...newBook, year: e.target.value })
-                    }
-                />
+                <h2>Ajouter un nouveau livre</h2>
+                <input type="text" placeholder="Title" value={newBook.title} onChange={(e) => setNewBook({ ...newBook, title: e.target.value })} />
+                <input type="text" placeholder="Author" value={newBook.author} onChange={(e) => setNewBook({ ...newBook, author: e.target.value })} />
+                <input type="text" placeholder="Year" value={newBook.year} onChange={(e) => setNewBook({ ...newBook, year: e.target.value })} />
                 <button onClick={handleAddBook}>Add Book</button>
             </div>
 
@@ -76,9 +53,7 @@ const AdminDashboard: React.FC = () => {
                         <p>Auteur du livre : {book.author}</p>
                         <p>Year: {book.year}</p>
                         <p>Disponibilité du livre : {book.status}</p>
-                        <button onClick={() => handleDeleteBook(book.id)}>
-                            Delete
-                        </button>
+                        <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
                     </div>
                 ))}
             </div>

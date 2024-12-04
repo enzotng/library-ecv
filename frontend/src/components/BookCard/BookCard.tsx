@@ -6,19 +6,11 @@ interface BookCardProps {
     author: string;
     year: number;
     image?: string;
-    status: "available" | "borrowed";
+    status: "disponible" | "emprunte";
     onBorrow: (bookId: number) => void;
 }
 
-const BookCard: React.FC<BookCardProps> = ({
-    id,
-    title,
-    author,
-    year,
-    image,
-    status,
-    onBorrow,
-}) => {
+const BookCard: React.FC<BookCardProps> = ({ id, title, author, year, image, status, onBorrow }) => {
     return (
         <div className="book-card">
             {image && <img src={image} alt={`${title} cover`} />}
@@ -26,9 +18,7 @@ const BookCard: React.FC<BookCardProps> = ({
             <p>Auteur du livre : {author}</p>
             <p>Year: {year}</p>
             <p>Disponibilité du livre : {status}</p>
-            {status === "available" && (
-                <button onClick={() => onBorrow(id)}>Borrow</button>
-            )}
+            {status === "disponible" && <button onClick={() => onBorrow(id)}>Emprunter le livre</button>}
         </div>
     );
 };
